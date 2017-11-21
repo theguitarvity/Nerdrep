@@ -1,6 +1,6 @@
      <div class="content parallax-container">
             <div class="col s12 z-depth-4 card-panel login">
-                <form action="#" method="post" class="col s6">
+                <form action="?page=logar" method="post" class="col s6">
 
                     <div class="row">
                         <div class="input-field col s6" >

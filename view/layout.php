@@ -16,7 +16,7 @@ and open the template in the editor.
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="shortcut icon" href="{{asset('img/logo.png')}}" type="image/x-icon">
+        <link rel="shortcut icon" href="" type="image/x-icon">
         <!-- Styles -->
         <link rel="stylesheet" href="/view/assets/css/style.css">
         <link href="view/assets/css/materialize.css" rel="stylesheet">

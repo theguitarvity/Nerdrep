@@ -1,6 +1,6 @@
 <div class="content parallax-container">
     <div class="col s12 z-depth-4 card-panel login">
-        <form action="?acao=cadastrar" method="post">
+        <form action="?page=cadastrar" method="post">
             
             <div class="row">
                 <div class="input-field col s6 " >
