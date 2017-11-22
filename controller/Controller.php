@@ -2,6 +2,8 @@
 
 require_once("model/UsuarioDAO.php");
 require_once("model/Usuario.php");
+require_once("model/Artigo.php");
+require_once("model/ArtigoDAO.php");
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,9 +20,12 @@ class Controller {
     //put your code here
     private $content;
     private $usuarioDAO;
+    private $artigoDAO;
+    
 
     public function __construct() {
         $this->usuarioDAO = new UsuarioDAO();
+        $this->artigoDAO = new ArtigoDAO();
         ini_set('error_reporting', E_ALL);
         ini_set('display_errors', 1);
     }
@@ -43,20 +48,42 @@ class Controller {
                 $this->realizarCadastro();
                 break;
             case "logar":
+                $this->realizarLogin();
+                break;
+            case "dashboard":
                 $this->dashboard();
                 break;
-            
+            case "logout":
+                $this->logout();
+                break;
+            case "novoArtigo":
+                $this->adicionarArtigo();
+                break;
         }
     }
-    public function dashboard(){
+
+    public function dashboard() {
+        $artigos = $this->listar();
         require 'view/dashboard.php';
     }
-    public function realizarLogin(){
-        if(isset($_POST['action'])){
+
+    public function realizarLogin() {
+        if (isset($_POST['action'])) {
             $email = $_POST['email'];
-            $senha = $_POST['senha'];
-            
+            $senha = $_POST['password'];
+            if ($this->usuarioDAO->login($email, $senha)) {
+                $usuario = $this->usuarioDAO->retornaUsuario($email)[0];
+                session_start();
+                $_SESSION['logado'] = true;
+                $_SESSION['usuario'] = $usuario;
+                header('Location: index.php?page=dashboard');
+            }
         }
+    }
+
+    public function logout() {
+        session_destroy();
+        header('Location: index.php?page=login');
     }
 
     public function telaLogin() {
@@ -66,8 +93,9 @@ class Controller {
 
     public function telaCadastro() {
 
-        require 'view/register.php';
         require 'view/layout.php';
+        require 'view/register.php';
+
         if (isset($_GET['acao']))
             $acao = $_GET['acao'];
         else
@@ -75,7 +103,31 @@ class Controller {
         if ($acao == "cadastrar")
             realizarCadastro();
     }
-
+    public function listar(){
+        session_start();
+        
+        return $artigos = $this->artigoDAO->listar($_SESSION['usuario']);
+    }
+    public function adicionarArtigo(){
+        session_start();
+        if(isset($_POST['action'])){
+            $codigo = rand(1111111,9999999);
+            $titulo = $_POST['title'];
+            $tipo = $_POST['type'];
+            $link = $_POST['link'];
+            $data = date("Y-m-d");
+            $usuario = $_SESSION['usuario'];
+            $sucess = false;
+            try {
+                $artigo = new Artigo($codigo, $titulo, $tipo, $data, $link, $usuario);
+                $sucess = $this->artigoDAO->salvar($artigo);
+                if($sucess==true)
+                   header('Location: index.php?page=dashboard'); 
+            } catch (Exception $ex) {
+                
+            }
+        }
+    }
     public function realizarCadastro() {
         if (isset($_POST['action'])) {
             $codigo = rand(1111111, 9999999);

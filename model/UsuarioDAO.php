@@ -47,7 +47,7 @@ class UsuarioDAO extends AbstractFactory {
     public function login($email, $senha) {
         $resultado = false;
         try {
-            $sql = "select * from usuario where emailUsuario = :email and senhaUsuario = :senha ";
+            $sql = "select * from usuario where emailUsuario = :email and senhaUsuario=:senha ";
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':senha', $senha);
@@ -66,17 +66,23 @@ class UsuarioDAO extends AbstractFactory {
     }
 
     public function retornaUsuario($email) {
-        $sql = "SELECT * FROM " . $this->nometabela . "where emailUsuario = '" . $email . "'";
+        $sql = "SELECT * FROM usuario Where emailUsuario='" . $email . "'";
+
         try {
             $resultRows = $this->db->query($sql);
+
             if (!($resultRows instanceof PDOStatement)) {
                 throw new Exception("Tem erro no seu SQL!<br> '" . $sql . "'");
             }
 
-            $resultObject = $this->queryRowsToListOfObjects($resultRows, "Contato");
-        } catch (Exception $ex) {
-            
+            $resultObject = $this->queryRowsToListOfObjects($resultRows, "Usuario");
+        } catch (Exception $exc) {
+
+            echo $exc->getMessage();
+            $resultObject = null;
         }
+
+        return $resultObject;
     }
 
 }
