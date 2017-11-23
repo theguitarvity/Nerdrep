@@ -4,28 +4,20 @@ require_once("model/UsuarioDAO.php");
 require_once("model/Usuario.php");
 require_once("model/Artigo.php");
 require_once("model/ArtigoDAO.php");
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+require_once("model/Metadado.php");
 
-/**
- * Description of Controller
- *
- * @author mrlopito
- */
 class Controller {
 
     //put your code here
     private $content;
     private $usuarioDAO;
     private $artigoDAO;
-    
+    private $metadado;
 
     public function __construct() {
         $this->usuarioDAO = new UsuarioDAO();
         $this->artigoDAO = new ArtigoDAO();
+        
         ini_set('error_reporting', E_ALL);
         ini_set('display_errors', 1);
     }
@@ -53,6 +45,9 @@ class Controller {
             case "dashboard":
                 $this->dashboard();
                 break;
+            case "deletar":
+                $this->deletar($_GET['cod']);
+                break;
             case "logout":
                 $this->logout();
                 break;
@@ -65,6 +60,10 @@ class Controller {
     public function dashboard() {
         $artigos = $this->listar();
         require 'view/dashboard.php';
+    }
+    public function deletar($cod){
+        $this->artigoDAO->deleta($cod);
+        header('Location: index.php?page=dashboard');
     }
 
     public function realizarLogin() {
@@ -111,15 +110,17 @@ class Controller {
     public function adicionarArtigo(){
         session_start();
         if(isset($_POST['action'])){
+            
             $codigo = rand(1111111,9999999);
-            $titulo = $_POST['title'];
-            $tipo = $_POST['type'];
             $link = $_POST['link'];
+            $metado = new Metadado($link);
+            $titulo = $metado->getTituloPagina();
+            $description = $metado->getDescriptionPagina();
             $data = date("Y-m-d");
             $usuario = $_SESSION['usuario'];
             $sucess = false;
             try {
-                $artigo = new Artigo($codigo, $titulo, $tipo, $data, $link, $usuario);
+                $artigo = new Artigo($codigo, $titulo, $description, $data, $link, $usuario);
                 $sucess = $this->artigoDAO->salvar($artigo);
                 if($sucess==true)
                    header('Location: index.php?page=dashboard'); 

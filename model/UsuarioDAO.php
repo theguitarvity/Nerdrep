@@ -2,17 +2,6 @@
 
 require_once("AbstractFactory.php");
 require_once("Usuario.php");
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of UsuarioDAO
- *
- * @author mrlopito
- */
 class UsuarioDAO extends AbstractFactory {
 
     //put your code here
@@ -29,7 +18,7 @@ class UsuarioDAO extends AbstractFactory {
 
         try {
             $sql = "INSERT INTO " . $this->tabela . "(" . $this->campos . ") VALUES ( " . $usuario->getCodUsuario() . ",'" . $usuario->getNomeUsuario() . "','" . $usuario->getEmailUsuario() . "','" . $usuario->getSenhaUsuario() . "' " . ")";
-
+            
             if ($this->db->exec($sql)) {
                 $result = true;
             } else {

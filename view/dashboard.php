@@ -69,7 +69,7 @@
                     <i class="material-icons">menu</i>
                 </a>
             </div>
-            <ul style="background-color:#222;" class="side-nav fixed" id="nav-mobile" style="transform: translateX(0%);">
+            <ul class="side-nav fixed" id="nav-mobile" style="transform: translateX(0%); background-color: #333">
                 <li>
                     <a href="/teste">
                         <img src="" alt="logo" width="350">
@@ -82,20 +82,24 @@
                 <?php
                 foreach ($artigos as $artigo) {
                     ?>
-                    <div class="" style="margin-left: 300px; with:50%; ">
-                        <div class="col s12 m6">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img width="100" height="200" src="http://materializecss.com/images/sample-1.jpg">
-                                    <span class="card-title" style="font-weight: bold"><?php echo $artigo->getTituloArtigo() ?></span>
-                                    <a href='<?php echo $artigo->getLinkArtigo()?>' target="_blank"class="btn-floating halfway-fab waves-effect waves-light yellow"><i class="material-icons">add</i></a>
-                                </div>
-                                <div class="card-content">
-                                    <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                <a href=<?php echo $artigo->getLinkArtigo()?> target="_blank">
+                        <div class="" style="margin-left: 300px; with:50%; ">
+                            <div class="col s12 m6">
+                                <div class="card">
+                                    <div class="card-image">
+                                        <img width="100" height="200" src="http://materializecss.com/images/sample-1.jpg">
+                                        <span class="card-title" style="font-weight: bold"><?php echo $artigo->getTituloArtigo() ?></span>
+                                        <a href=<?php echo '?page=deletar&cod=' . $artigo->getCodArtigo() ?>  class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">remove</i></a>
+
+                                    </div>
+                                    <div class="card-content">
+                                        <p><?php echo $artigo->getDescArtigo() ?></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
+
                     <?php
                 }
                 ?>
@@ -113,23 +117,6 @@
                         <p>Digite aqui, os dados do artigo que você gostaria de salvar</p>
                         <div class="col s6 z-depth-4 card-panel">
                             <form action="?page=novoArtigo" method="post">
-
-                                <div class="row">
-                                    <div class="input-field col s6 " >
-                                        <i class="material-icons prefix">assignment</i>
-                                        <input type="text" name="title" id="title" class="validate" required autofocus>
-                                        <label for="title">Titulo do Artigo</label>
-
-                                    </div>
-                                </div> 
-                                <div class="row">
-                                    <div class="input-field col s6 " >
-                                        <i class="material-icons prefix">assignment_late</i>
-                                        <input type="text" name="type" id="type" class="validate">
-                                        <label for="type">Tipo do Artigo</label>
-
-                                    </div>
-                                </div> 
                                 <div class="row">
                                     <div class="input-field col s6 " >
                                         <i class="material-icons prefix">attach_file</i>
@@ -138,6 +125,8 @@
 
                                     </div>
                                 </div> 
+
+
 
                                 <div class="row">
                                     <div class="input-field col s6">

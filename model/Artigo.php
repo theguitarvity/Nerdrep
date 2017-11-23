@@ -1,21 +1,9 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Artigo
- *
- * @author mrlopito
- */
 class Artigo {
     //put your code here
     private $codArtigo;
     private $tituloArtigo;
-    private $tipoArtigo;
+    private $descArtigo;
     private $dataAdicionado;
     private $linkArtigo;
     private $usuario;
@@ -31,8 +19,8 @@ class Artigo {
         return $this->tituloArtigo;
     }
 
-    function getTipoArtigo() {
-        return $this->tipoArtigo;
+    function getDescArtigo() {
+        return $this->descArtigo;
     }
 
     function getLinkArtigo() {
@@ -47,8 +35,8 @@ class Artigo {
         $this->tituloArtigo = $tituloArtigo;
     }
 
-    function setTipoArtigo($tipoArtigo) {
-        $this->tipoArtigo = $tipoArtigo;
+    function setDescArtigo($tipoArtigo) {
+        $this->descArtigo = $tipoArtigo;
     }
 
     function setLinkArtigo($linkArtigo) {
