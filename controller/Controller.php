@@ -8,7 +8,7 @@ require_once("model/Metadado.php");
 
 class Controller {
 
-    //put your code here
+    
     private $content;
     private $usuarioDAO;
     private $artigoDAO;
@@ -53,6 +53,9 @@ class Controller {
                 break;
             case "novoArtigo":
                 $this->adicionarArtigo();
+                break;
+            default:
+                $this->telaLogin();
                 break;
         }
     }

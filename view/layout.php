@@ -28,7 +28,7 @@ and open the template in the editor.
         <div class="navbar-fixed" >
             <nav>
                 <div class="nav-wrapper menu">
-                    <a href="#" class="brand-logo"><img src="#" alt="logo" class="logo"></a>
+                    <a href="#" class="brand-logo">Nerdrep</a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <li><a href="?page=about">Sobre o Nerdrep</a></li>
                         <li><a href="?page=login">Minha Conta</a></li>
